@@ -21,4 +21,29 @@ export class Option<T extends unknown> {
     }
     return this._state.value;
   }
+
+  isNone(): boolean {
+    return this._state.empty;
+  }
+
+  unwrapOr(defaultValue: T): T {
+    if (this._state.empty) {
+      return defaultValue;
+    }
+    return this._state.value;
+  }
+
+  unwrapOrElse(cb: () => T): T {
+    if (this._state.empty) {
+      return cb();
+    }
+    return this._state.value;
+  }
+
+  unwrapOrNull(): T | null {
+    if (this._state.empty) {
+      return null;
+    }
+    return this._state.value;
+  }
 }
