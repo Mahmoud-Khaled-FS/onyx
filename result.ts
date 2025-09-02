@@ -85,14 +85,3 @@ export class Result<T = unknown, E extends Error = Error> {
     return this._state.error;
   }
 }
-
-const id = 1;
-
-// const result = Result.error<number>(new Error('this is fine'));
-const result = Result.ok(100);
-
-const response = result.match({
-  ok: (value) => ({ success: true, status: 200, data: value }),
-  err: (err) => ({ success: false, status: 400, error: err.message }),
-});
-console.log(response);
