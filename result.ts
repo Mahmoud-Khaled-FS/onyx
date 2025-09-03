@@ -1,6 +1,14 @@
 export type Ok<T> = { readonly ok: true; value: T };
 export type Err<E extends Error> = { readonly ok: false; error: E };
 
+export function ok<T>(data: T): Result<T> {
+  return Result.ok(data);
+}
+
+export function err<T = unknown, E extends Error = Error>(error: E): Result<T, E> {
+  return Result.error(error);
+}
+
 export class Result<T = unknown, E extends Error = Error> {
   private readonly _state: Ok<T> | Err<E>;
   private _on_error?: (err: E) => void;
