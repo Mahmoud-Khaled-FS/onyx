@@ -5,7 +5,11 @@ const UUID_V4_VERSION_BYTE = 0x40;
 const UUID_BITS = 128;
 const UUID_STRING_LENGTH = 36;
 
-export function uuid_v4() {
+function byteToHex(byte: number): string {
+  return byte.toString(16).padStart(2, '0');
+}
+
+export function uuid_v4(): string {
   const rb = randomBytes(UUID_BITS / 8);
   rb[6] = (rb[6] & 0x0f) | UUID_V4_VERSION_BYTE;
   rb[8] = (rb[8] & 0x3f) | 0x80;
@@ -33,9 +37,4 @@ export function uuid_v4() {
   assertString(result);
   assertLen(result, UUID_STRING_LENGTH);
   return result;
-}
-
-function byteToHex(byte: number) {
-  const str = byte.toString(16);
-  return str.length === 2 ? str : '0' + str;
 }
